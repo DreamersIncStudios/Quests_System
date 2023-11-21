@@ -49,7 +49,6 @@ namespace DreamersInc.Quests
                 currentStepIndex++;
                 CurrentStep = Missions[currentStepIndex];
                 UpdateLore();
-                CurrentStep.StartMission();
                 
             }
         }

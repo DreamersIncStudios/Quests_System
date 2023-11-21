@@ -10,13 +10,30 @@ namespace DreamersInc.Quests
     {
         public class OnSceneLoadEventArgs : EventArgs
         {
-            public uint Scene;
+            public uint SceneID;
+
+            public OnSceneLoadEventArgs()
+            {
+            }
+
+            public OnSceneLoadEventArgs(uint sceneID)
+            {
+                SceneID = sceneID;
+            }
         }
 
         public static EventHandler<OnSceneLoadEventArgs> OnSceneLoad;
         public class OnSceneUnloadEventArgs : EventArgs
         {
-            public uint Scene;
+            public uint SceneID;
+            public OnSceneUnloadEventArgs()
+            {
+            }
+
+            public OnSceneUnloadEventArgs(uint sceneID)
+            {
+                SceneID = sceneID;
+            }
         }
 
         public static EventHandler<OnSceneUnloadEventArgs> OnSceneUnload;

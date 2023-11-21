@@ -31,14 +31,14 @@ namespace DreamersInc.Quests
         {
             SceneLoadEventSystem.OnSceneLoad += (object sender, SceneLoadEventSystem.OnSceneLoadEventArgs eventArgs) =>
             {
-                foreach (var mission in ActiveMissions.Where(mission => eventArgs.Scene== mission.SceneID))
+                foreach (var mission in ActiveMissions.Where(mission => eventArgs.SceneID== mission.SceneID))
                 {
                     mission.ActivateMission();
                 }
             };
             SceneLoadEventSystem.OnSceneUnload += (object sender, SceneLoadEventSystem.OnSceneUnloadEventArgs eventArgs) =>
             {
-                foreach (var mission in ActiveMissions.Where(mission => eventArgs.Scene== mission.SceneID))
+                foreach (var mission in ActiveMissions.Where(mission => eventArgs.SceneID== mission.SceneID))
                 {
                     mission.DeactivateMission();
                 }
@@ -55,6 +55,23 @@ namespace DreamersInc.Quests
 
         public void SaveData()
         {
+        }
+
+        public static bool CompleteActiveMission(uint MissionID)
+        {
+            foreach (var mission in ActiveMissions.Where(mission=> MissionID== mission.SceneID))
+            {
+                mission.CompleteMission();
+                if (!mission.PartOfQuest) return true;
+                foreach (var quest in ActiveQuests.Where(quest => mission.QuestID == quest.ID ))
+                {
+                    quest.CompleteQuestStep();
+                }
+
+                return true;
+            }
+
+            return false;
         }
     }
 }

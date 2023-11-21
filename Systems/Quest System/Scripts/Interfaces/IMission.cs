@@ -12,13 +12,14 @@ namespace DreamersInc.Quests
         public uint SceneID { get; }
         public string Description { get; }
         public string Lore { get; }
-        
+
+        public bool PartOfQuest { get; }
+        public uint QuestID { get; }
         public uint RewardExp { get; }
         public uint RewardGold { get; }
 
         public List<Object> RewardItem { get; }
-
-        public void StartMission();
+        
         public void ActivateMission();
         public void DeactivateMission();
         public void CompleteMission();
