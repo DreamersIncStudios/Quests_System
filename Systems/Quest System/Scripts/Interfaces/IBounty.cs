@@ -7,7 +7,7 @@ namespace DreamersInc.Quests
     public interface IBounty 
     {
         string Name { get; }
-
+        Sprite Icon { get; }
         string Description { get; }
         uint RewardEXP { get; }
         uint RewardGold { get; }

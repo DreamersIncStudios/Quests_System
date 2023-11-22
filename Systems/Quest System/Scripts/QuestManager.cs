@@ -14,8 +14,8 @@ namespace DreamersInc.Quests
 
         public Quest HighlightedQuest { get; private set; }
 
-        public static List<IMission> ActiveMissions;   
-        public List<IBounty> Bounties;
+        public static List<IMission> ActiveMissions;
+        public static IBounty[] Bounties = new IBounty[16];
 
         private void Awake()
         {
@@ -25,6 +25,7 @@ namespace DreamersInc.Quests
             {
                 instance = this;
             }
+  
         }
 
         private void Start()
