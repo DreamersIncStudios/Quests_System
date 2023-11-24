@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using DreamersInc.Quests.Editor;
 using UnityEngine;
 
 namespace DreamersInc.Quests
@@ -25,7 +26,7 @@ namespace DreamersInc.Quests
             if (!other.gameObject.CompareTag("Player")) return;
             // create UI button
             Debug.Log("Create UI interface");
-            QuestManager.CompleteActiveMission(missionID);
+            QuestManagerC.CompleteActiveMission(missionID);
         }
 
         private void OnTriggerExit(Collider other)

@@ -8,24 +8,25 @@ namespace DreamersInc.Quests
 {
     public class QuestManager : MonoBehaviour
     {
-        private static QuestManager instance;
-        public static List<Quest> ActiveQuests;
+        public static QuestManager Instance;
+        public List<Quest> ActiveQuests;
         public List<Quest> CompletedQuest;
 
         public Quest HighlightedQuest { get; private set; }
 
-        public static List<IMission> ActiveMissions;
-        public static IBounty[] Bounties = new IBounty[16];
+        public List<Mission> ActiveMissions;
+        public IBounty[] Bounties = new IBounty[16];
 
         private void Awake()
         {
-            if(instance)
+            if(Instance)
                 Destroy(this.gameObject);
             else
             {
-                instance = this;
+                Instance = this;
             }
-  
+
+        
         }
 
         private void Start()
@@ -46,7 +47,7 @@ namespace DreamersInc.Quests
             };
         }
 
-        public static void DisplayQuestMenu()
+        public  void DisplayQuestMenu()
         {
         }
 
@@ -58,7 +59,7 @@ namespace DreamersInc.Quests
         {
         }
 
-        public static bool CompleteActiveMission(uint MissionID)
+        public  bool CompleteActiveMission(uint MissionID)
         {
             foreach (var mission in ActiveMissions.Where(mission=> MissionID== mission.SceneID))
             {

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using DreamersInc.Quests.Editor;
 using UnityEngine;
 
 namespace DreamersInc.Quests
@@ -13,18 +14,24 @@ namespace DreamersInc.Quests
         public string Description => description;
         [SerializeField]string description;
         public string Lore { get; private set; }
-        public IMission CurrentStep;
+        public Mission CurrentStep;
         private int currentStepIndex;
         private bool QuestCompleted => currentStepIndex >= Missions.Count;
         public uint RewardExp { get; }
-        public uint RewardGold { get; }        
-       [SerializeReference] public List<IMission> Missions;
+        public uint RewardGold { get; }
 
-        public void AcceptQuest()
+        public Sprite BackgroundUI => backgroundUI;
+        [Header("UI Asset")] 
+        [SerializeField] private Sprite backgroundUI;
+        public List<Mission> Missions;
+       public bool Track { get; set; }
+
+       public void AcceptQuest()
         {
-            QuestManager.ActiveQuests.Add(Instantiate(this));
-            if (Missions.Count > 1)
-                CurrentStep = Missions[0];
+            QuestManagerC.ActiveQuests.Add(Instantiate(this));
+            CurrentStep = Missions[0];
+            QuestManagerC.ActiveMissions.Add(CurrentStep);
+
         }
 
         public bool IsCancelable => isCancelable;
@@ -33,7 +40,7 @@ namespace DreamersInc.Quests
         {
             if (isCancelable)
             {
-                QuestManager.ActiveQuests.Remove(this);
+                QuestManagerC.ActiveQuests.Remove(this);
             }
         }
 
@@ -61,6 +68,10 @@ namespace DreamersInc.Quests
         void UpdateLore()
         {
             Lore += CurrentStep.Lore;
+        }
+        public void SetQuestID(uint count)
+        {
+            id = count;
         }
     }
 }

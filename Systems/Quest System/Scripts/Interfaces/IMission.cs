@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace DreamersInc.Quests
@@ -9,6 +10,7 @@ namespace DreamersInc.Quests
     {
         public string Name { get; }
         public uint ID { get; }
+        public Color BackgroundUI { get; }
         public uint SceneID { get; }
         public string Description { get; }
         public string Lore { get; }
@@ -19,11 +21,53 @@ namespace DreamersInc.Quests
         public uint RewardGold { get; }
 
         public List<Object> RewardItem { get; }
-        
+        public bool Track { get; set; }
         public void ActivateMission();
         public void DeactivateMission();
         public void CompleteMission();
         
 
+    }
+
+    public abstract class Mission : ScriptableObject, IMission
+    {
+        public string Name => nameMission;
+        [SerializeField] private string nameMission;
+        public uint ID => id;
+        [SerializeField] private uint sceneID;
+        public uint SceneID => sceneID;
+        [SerializeField] private uint id;
+        public string Description => desc;
+        [TextArea(4,10)]
+        [SerializeField] private string desc;
+
+        public string Lore => lore;
+        [SerializeField][TextArea(4,10)]
+        private string lore;
+        public bool PartOfQuest => partOfQuest;
+        [SerializeField] private bool partOfQuest;
+        [ShowIf("PartOfQuest")] [SerializeField]private uint questID;
+        public uint QuestID => questID;
+        [SerializeField]private uint rewardExp;
+        [SerializeField]private uint rewardGold;
+        [SerializeField]private List<Object> rewardItems;
+        public uint RewardExp => rewardExp;
+        public uint RewardGold => rewardGold;
+        public List<Object> RewardItem => rewardItems;
+        public bool Track { get; set; }
+        public abstract void ActivateMission();
+
+
+        public abstract void DeactivateMission();
+
+        public abstract void CompleteMission();
+
+        public Color BackgroundUI => backgroundUI;
+        [Header("UI Asset")] 
+        [SerializeField] private Color backgroundUI;
+        public void SetMissionID(uint count)
+        {
+            id = count;
+        }
     }
 }
