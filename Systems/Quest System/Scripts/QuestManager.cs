@@ -16,38 +16,39 @@ namespace DreamersInc.Quests
 
         public List<Mission> ActiveMissions;
         public IBounty[] Bounties = new IBounty[16];
+   public List<uint> ScenesLoaded { get; private set; }
 
-        private void Awake()
-        {
-            if(Instance)
-                Destroy(this.gameObject);
-            else
-            {
-                Instance = this;
-            }
+   private void Awake()
+   {
+       if (Instance)
+           Destroy(this.gameObject);
+       else
+       {
+           Instance = this;
+       }
 
-        
-        }
+       ScenesLoaded = new List<uint>();
+       SceneLoadEventSystem.OnSceneLoad += (object sender, SceneLoadEventSystem.OnSceneLoadEventArgs eventArgs) =>
+       {
+           if (!ScenesLoaded.Contains(eventArgs.SceneID))
+               ScenesLoaded.Add(eventArgs.SceneID);
+           foreach (var mission in ActiveMissions.Where(mission => eventArgs.SceneID == mission.SceneID))
+           {
+               mission.ActivateMission();
+           }
+       };
+       SceneLoadEventSystem.OnSceneUnload += (object sender, SceneLoadEventSystem.OnSceneUnloadEventArgs eventArgs) =>
+       {
+           if (ScenesLoaded.Contains(eventArgs.SceneID))
+               ScenesLoaded.Remove(eventArgs.SceneID);
+           foreach (var mission in ActiveMissions.Where(mission => eventArgs.SceneID == mission.SceneID))
+           {
+               mission.DeactivateMission();
+           }
+       };
+   }
 
-        private void Start()
-        {
-            SceneLoadEventSystem.OnSceneLoad += (object sender, SceneLoadEventSystem.OnSceneLoadEventArgs eventArgs) =>
-            {
-                foreach (var mission in ActiveMissions.Where(mission => eventArgs.SceneID== mission.SceneID))
-                {
-                    mission.ActivateMission();
-                }
-            };
-            SceneLoadEventSystem.OnSceneUnload += (object sender, SceneLoadEventSystem.OnSceneUnloadEventArgs eventArgs) =>
-            {
-                foreach (var mission in ActiveMissions.Where(mission => eventArgs.SceneID== mission.SceneID))
-                {
-                    mission.DeactivateMission();
-                }
-            };
-        }
-
-        public  void DisplayQuestMenu()
+   public  void DisplayQuestMenu()
         {
         }
 

@@ -8,6 +8,13 @@ namespace DreamersInc.Quests
 {
     public class SceneLoadEventSystem : MonoBehaviour
     {
+       
+
+        private void Start()
+        {
+        
+        }
+
         public class OnSceneLoadEventArgs : EventArgs
         {
             public uint SceneID;

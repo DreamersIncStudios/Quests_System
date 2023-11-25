@@ -56,7 +56,9 @@ namespace DreamersInc.Quests
                 currentStepIndex++;
                 CurrentStep = Missions[currentStepIndex];
                 UpdateLore();
-                
+                foreach(var index in QuestManagerC.ScenesLoaded)
+                    if(CurrentStep.SceneID== index)
+                        CurrentStep.ActivateMission();
             }
         }
 

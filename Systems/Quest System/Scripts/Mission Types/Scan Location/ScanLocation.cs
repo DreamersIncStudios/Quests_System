@@ -6,10 +6,11 @@ using UnityEngine;
 namespace DreamersInc.Quests
 {
     [CreateAssetMenu]
-    public class ScanLocation : Mission
+    public class ScanLocation : Mission,IGotoLocation
     {
-        
-   
+
+        public Vector3 Size => size;
+        public  Vector3 Location => location;
         [SerializeField] private Vector3 size;
         [SerializeField] private Vector3 location;
         public Color BackgroundUI => backgroundUI;
