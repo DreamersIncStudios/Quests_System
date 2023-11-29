@@ -12,10 +12,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12bdf8b18a0894f2bae07df9422f7c53, type: 3}
   m_Name: Search Position Blank
   m_EditorClassIdentifier: 
-  NameMission: 
+  nameMission: 
+  sceneID: 0
   id: 0
   desc: 
+  lore: 
   partOfQuest: 0
+  questID: 0
+  rewardExp: 0
+  rewardGold: 0
+  rewardItems: []
+  hasIntroCutscene: 1
+  intro: {fileID: 0}
+  hasOutroCutscene: 1
+  Outro: {fileID: 0}
+  backgroundUI: {r: 0, g: 0, b: 0, a: 0}
   size: {x: 0, y: 0, z: 0}
-  Location: {x: 0, y: 0, z: 0}
-  sceneID: 0
+  location: {x: 0, y: 0, z: 0}
