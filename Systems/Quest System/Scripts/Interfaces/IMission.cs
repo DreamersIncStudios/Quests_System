@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using DreamersInc.Quests.Editor;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -28,7 +29,8 @@ namespace DreamersInc.Quests
 
         public bool HasIntroCutscene { get; }
         public bool HasOutroCutscene { get; }
-      
+        public Cutscene Outro { get; }
+        public Cutscene Intro { get;  }
 
     }
 
@@ -78,8 +80,10 @@ namespace DreamersInc.Quests
 
         public virtual void CompleteMission()
         {
-    
+            QuestManagerC.CompleteActiveMission(ID);
+
         }
+
 
         public Color BackgroundUI => backgroundUI;
         [Header("UI Asset")] [SerializeField] private Color backgroundUI;

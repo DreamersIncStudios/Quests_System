@@ -23,5 +23,10 @@ namespace DreamersInc.Quests
         {
             Destroy(go); 
         }
+
+        public override void CompleteMission()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

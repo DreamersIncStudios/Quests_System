@@ -27,14 +27,14 @@ namespace DreamersInc.Quests
     public sealed class MissionDatabase : IDatabase
 
     {
-        private static List<IMission> missionList;
+        private static List<Mission> missionList;
         private static bool IsLoaded { get; set; }
-
+        public static uint Count => (uint)missionList.Count;
         public static void ValidateDatabase()
         {
             if (missionList == null || !IsLoaded)
             {
-                missionList = new List<IMission>();
+                missionList = new List<Mission>();
             }
             else
                 IsLoaded = true;
@@ -44,8 +44,8 @@ namespace DreamersInc.Quests
         {
             if (IsLoaded && !forceLoad)
                 return;
-            missionList = new List<IMission>();
-            var items = Resources.LoadAll<ScanLocation>("Missions");
+            missionList = new List<Mission>();
+            var items = Resources.LoadAll<Mission>("Missions");
             foreach (var item in items)
             {
                 if (!missionList.Contains(item))
@@ -57,11 +57,11 @@ namespace DreamersInc.Quests
 
         public void ClearDatabase()
         {
-            missionList = new List<IMission>();
+            missionList = new List<Mission>();
             IsLoaded = false;
         }
 
-        public static IMission GetQuest(uint ID)
+        public static Mission GetMission(uint ID)
         {
             ValidateDatabase();
             LoadDatabase();
