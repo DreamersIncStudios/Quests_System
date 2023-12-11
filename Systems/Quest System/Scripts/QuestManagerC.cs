@@ -10,12 +10,18 @@ namespace DreamersInc.Quests.Editor
         private static QuestManager Manager = Quests.QuestManager.Instance;
         public static List<Quest> ActiveQuests => Manager.ActiveQuests;
         public static List<Mission> ActiveMissions => Manager.ActiveMissions;
-        public static IBounty[] Bounties => Manager.Bounties;
+        public static Bounty[] Bounties => Manager.Bounties;
+        public static List<Bounty> MissionBounties => Manager.MissionQuestBounties;
         public static List<uint> ScenesLoaded => Manager.ScenesLoaded;
-        public static void CompleteActiveMission(uint missionID)
+        public static bool CompleteActiveMission(uint missionID)
         {
-            Manager.CompleteActiveMission(missionID);
+            return Manager.CompleteActiveMission(missionID);
 
+        }
+
+        public static bool CompleteActiveBounty(uint bountyID)
+        {
+          return  Manager.CompleteActiveBounty(bountyID);
         }
     }
 }

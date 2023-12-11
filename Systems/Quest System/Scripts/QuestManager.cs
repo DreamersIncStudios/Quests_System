@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace DreamersInc.Quests
@@ -15,7 +16,8 @@ namespace DreamersInc.Quests
         public Quest HighlightedQuest { get; private set; }
 
         public List<Mission> ActiveMissions;
-        public IBounty[] Bounties = new IBounty[16];
+        public List<Bounty> MissionQuestBounties;
+        public Bounty[] Bounties = new Bounty[16];
    public List<uint> ScenesLoaded { get; private set; }
 
    private void Awake()
@@ -27,6 +29,7 @@ namespace DreamersInc.Quests
            Instance = this;
        }
 
+       MissionQuestBounties = new List<Bounty>();
        ScenesLoaded = new List<uint>();
        SceneLoadEventSystem.OnSceneLoad += (object sender, SceneLoadEventSystem.OnSceneLoadEventArgs eventArgs) =>
        {
@@ -62,7 +65,7 @@ namespace DreamersInc.Quests
 
         public  bool CompleteActiveMission(uint MissionID)
         {
-            foreach (var mission in ActiveMissions.Where(mission=> MissionID== mission.SceneID))
+            foreach (var mission in ActiveMissions.Where(mission=> MissionID== mission.ID))
             {
                 mission.CompleteMission();
                 if (!mission.PartOfQuest) return true;
@@ -74,6 +77,16 @@ namespace DreamersInc.Quests
                 return true;
             }
 
+            return false;
+        }
+        public  bool CompleteActiveBounty(uint bountyID)
+        {
+            for (var i = 0; i < Bounties.Length; i++)
+            {
+                if (Bounties[i].ID != bountyID) continue;
+                Bounties[i] = null;
+                return true;
+            }
             return false;
         }
     }

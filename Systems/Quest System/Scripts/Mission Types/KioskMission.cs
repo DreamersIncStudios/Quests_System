@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class KioskMission : Mission,IInteractWithObject
 {
-    public uint unlockID;
+    [SerializeField] private uint unlockID;
     public UnlockType Type;
     public override void ActivateMission()
     {
